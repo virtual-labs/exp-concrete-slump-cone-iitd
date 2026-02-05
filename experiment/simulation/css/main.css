@@ -1,0 +1,716 @@
+/* ===== Base layout (single index) ===== */
+html, body {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  height: 100%;
+  background: #333; /* Dark background for the empty space */
+  overflow: hidden;
+  font-family: system-ui, -apple-system, sans-serif;
+}
+
+/* The wrapper fills the screen but does no layout itself */
+.simsubscreen { 
+  position: relative; 
+  width: 100vw; 
+  height: 100vh; 
+  overflow: hidden; 
+}
+
+/* The Stage is now LOCKED to your perfect resolution */
+.stage { 
+  position: absolute; 
+  width: 1536px;    /* Locked Width */
+  height: 730px;    /* Locked Height */
+  
+  /* Centering logic */
+  left: 50%;
+  top: 50%;
+  transform-origin: center center;
+  
+  background: #ffffff; 
+  box-shadow: 0 0 20px rgba(0,0,0,0.5); 
+  overflow: hidden; 
+}
+
+/* Ensure actors use the fixed coordinate system */
+.actor {
+  position: absolute;
+  visibility: hidden;
+  pointer-events: none;
+  backface-visibility: hidden; 
+}
+
+.prompt-btn {
+  position: absolute;
+  width: 148px;         
+  height: 88px;         
+  cursor: pointer;
+  filter: drop-shadow(0 2px 2px rgba(0,0,0,0.15));
+  object-fit: contain; 
+}
+
+/* ================= Instruction Box ================= */
+#instructionBox {
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    transform: none; 
+    
+    background-color: #ffeb3b; 
+    color: #222;
+    border: 2px solid #222;
+    
+    padding: 10px 30px;
+    border-radius: 8px;
+    font-size: 24px;
+    font-weight: bold;
+    
+    z-index: 10000; 
+    pointer-events: none; 
+    box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+    transition: all 0.3s ease-in-out;
+
+    /* ADD THIS: allows \A to create a new line */
+    white-space: pre-wrap; 
+    
+    /* OPTIONAL: ensure text aligns correctly if multiple lines are used */
+    text-align: left;
+}
+
+/* Dynamic Text Injection */
+#instructionBox::after { content: ""; }
+#instructionBox.step-0::after  { content: " Click Start to begin"; }
+#instructionBox.step-1::after  { content: " Prepare the concrete and collect it a bin"; }
+#instructionBox.step-2::after  { content: " Prepare the base plate for the slump test"; }
+#instructionBox.step-3::after  { content: " Prepare the slump cone and\A place it over the base plate"; }
+#instructionBox.step-4::after  { content: " Bring the bin with concrete near the slump cone"; }
+#instructionBox.step-5::after  { content: " Shovel a small amount of concrete\A and pour it in the cone"; }
+#instructionBox.step-6::after  { content: " Pick up the tamping rod,\A tamp the concrete in the cone for 25 times."; }
+#instructionBox.step-7::after  { content: " Shovel a small amount of concrete\A and pour it in the cone"; }
+#instructionBox.step-8::after  { content: " Pick up the tamping rod,\A tamp the concrete in the cone for 25 times."; }
+#instructionBox.step-9::after  { content: " Shovel a small amount of concrete\A and pour it in the cone"; }
+#instructionBox.step-10::after { content: " Pick up the tamping rod,\A tamp the concrete in the cone for 25 times. \A Level the surface of the concrete"; }
+#instructionBox.step-cone-lift::after { content: " remove the cone and place it next to the concrete"; }
+#instructionBox.step-11::after { content: " Click next"; }
+#instructionBox.step-12::after { content: " using a scale measure the height between the\A highest point of concrete and top of the cone"; }
+#instructionBox.step-13 {
+    pointer-events: auto !important;
+}
+#instructionBox.step-13::after { 
+    content: none; 
+}
+#instructionBox.step-14::after { content: " Simulation Completed"; }
+
+/* ===== Assets & Layout ===== */
+
+#tray {
+  width: 600px;
+  height: auto;
+  left: 50%;
+  top: 60%;
+  transform: translateX(-50%);
+  z-index: 1;
+}
+
+#heap {
+  width: 540px;
+  height: auto;
+  left: 50%;
+  top: 47%;
+  transform: translateX(-50%);
+  transform-origin: 50% 100%;
+  z-index: 2;
+}
+
+#spade {
+  width: 220px;
+  height: auto;
+  left: 50%;
+  top: 30%;
+  transform: translateX(-50%) rotate(-25deg);
+  transform-origin: 50% 50%;
+  z-index: 3;
+}
+
+#base_stage {
+  width: 820px;
+  left: 62.7%;
+  bottom: 70px; 
+  transform: translateX(-50%);
+  z-index: 1;
+  visibility: hidden;
+}
+
+/* Intro Animations */
+@keyframes tray_slide_up {
+  from { top: 100%; opacity: 0; }
+  to   { top: 30%; opacity: 1; }
+}
+
+@keyframes heap_rise_in {
+  0%   { transform: translateX(-50%) scaleY(0.1); opacity: 0; }
+  60%  { transform: translateX(-50%) scaleY(1.05); opacity: 1; }
+  100% { transform: translateX(-50%) scaleY(1.0);  opacity: 1; }
+}
+
+@keyframes spade_drop_in {
+  from { transform: translate(-50%, -170px) rotate(-0deg); opacity: 0; }
+  to   { transform: translate(-50%, -100px) rotate(-0deg); opacity: 1; }
+}
+
+@keyframes next_pop {
+  0%   { transform: scale(0.7); opacity: 0; }
+  70%  { transform: scale(1.06); opacity: 1; }
+  100% { transform: scale(1.0);  opacity: 1; }
+}
+@keyframes next_pulse {
+  0%,100% { transform: scale(1.0); }
+  50%     { transform: scale(1.06); }
+}
+
+@keyframes base_fade_in {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+/* Cone */
+#cone {
+  position: absolute;
+  width: 400px;         
+  height: auto;
+  left: 50%;
+  bottom: 22%;           
+  transform: translateX(-50%);
+  z-index: 5;           
+  visibility: hidden;
+}
+
+#arrow_cone {
+  position: absolute;
+  width: 70px;
+  height: auto;
+  left: 50%;       /* Center horizontally */
+  bottom: 75%;     /* Position above the cone */
+  transform: translateX(-50%);
+  z-index: 20;
+  visibility: hidden;
+  pointer-events: none;
+  animation: arrow_blink 1.1s ease-in-out infinite;
+}
+
+@keyframes cone_pop_in {
+  0%   { transform: translate(-50%, 20px) scale(0.95); opacity: 0; }
+  70%  { transform: translate(-50%, -2px) scale(1.02); opacity: 1; }
+  100% { transform: translate(-50%, 0)    scale(1.00); opacity: 1; }
+}
+
+/* Tray & Spade Steps */
+#tray_step3{
+  position: absolute;
+  width: 160px;               
+  height: auto;
+  left: 92%;
+  bottom: 71%;                
+  transform: translateX(-50%);
+  z-index: 6;                 
+  visibility: hidden;
+}
+
+#spade_step3{
+  position: absolute;
+  width: 100px;               
+  height: auto;
+  left: 94%;                  
+  bottom: 76%;                
+  transform: translateX(-50%) rotate(-25deg);
+  transform-origin: 50% 50%;
+  z-index: 7;                 
+  visibility: hidden;
+}
+
+@keyframes spade_pop_in {
+  0%   { transform: translate(-50%, -30px) rotate(-10deg); opacity: 0; }
+  70%  { transform: translate(-50%, -6px)  rotate(-25deg); opacity: 1; }
+  100% { transform: translate(-50%, 0)     rotate(-25deg); opacity: 1; }
+}
+
+@keyframes spade_slide_lr {
+  0%   { transform: translateX(-50%) translateX(0); }
+  16%  { transform: translateX(-50%) translateX(20px); }
+  33%  { transform: translateX(-50%) translateX(-20px); }
+  50%  { transform: translateX(-50%) translateX(20px); }
+  66%  { transform: translateX(-50%) translateX(-20px); }
+  83%  { transform: translateX(-50%) translateX(20px); }
+  100% { transform: translateX(-50%) translateX(0); }
+}
+
+#concrete_piece {
+  position: absolute;
+  width: 70px;              
+  height: auto;
+  left: 90%;                
+  bottom: 80%;
+  transform: translateX(-50%);
+  z-index: 8;
+  visibility: hidden;
+}
+
+#arrow_step3{
+  position: absolute;
+  width: 56px;                 
+  height: auto;
+  left: 92%;                   
+  bottom: 86%;                 
+  transform: translateX(-50%);
+  z-index: 9;                  
+  visibility: hidden;
+  pointer-events: none;        
+  animation: arrow_blink 1.1s ease-in-out infinite;
+}
+
+@keyframes arrow_blink {
+  0%   { opacity: .25; transform: translateX(-50%) translateY(0)    scale(1.00); }
+  50%  { opacity: 1.00; transform: translateX(-50%) translateY(-6px) scale(1.06); }
+  100% { opacity: .25; transform: translateX(-50%) translateY(0)    scale(1.00); }
+}
+
+@keyframes spade_move_left {
+  from { transform: translateX(-50%) rotate(0) translateX(0); }
+  to   { transform: translateX(-50%) rotate(0) translateX(-653.6px); }
+}
+
+@keyframes piece_move_left {
+  from { transform: translateX(-50%) translateX(0); }
+  to   { transform: translateX(-50%) translateX(-653.6px); }
+}
+
+@keyframes piece_drop {
+  from { transform: translateX(-50%) translateX(-653.6px) translateY(0); } /* Updated to match spade position */
+  to   { transform: translateX(-50%) translateX(-653.6px) translateY(400px); } /* Updated to match spade position */
+}
+
+@keyframes spade_return {
+  from { transform: translateX(-50%) rotate(0) translateX(-653.6px); }
+  to   { transform: translateX(-50%) rotate(0) translateX(0); }
+}
+
+/* Concrete Sizes */
+#smaller_concrete { width: 120px; height: auto; z-index:8; visibility: hidden; }
+#middle_concrete { width: 250px; height: auto; z-index:8; visibility: hidden; }
+#larger_concrete { width: 350px; height: auto; z-index:8; visibility: hidden; }
+
+/* Leveler */
+#leveler {
+  position: absolute;
+  width: 270px;       
+  height: auto;
+  left: 25%;          
+  bottom: 42%;        
+  transform: translateX(-50%) rotate(0deg);
+  transform-origin: center center;
+  z-index: 6;
+  visibility: hidden;
+  pointer-events: none;
+}
+
+#arrow_leveler {
+  position: absolute;
+  width: 70px;        
+  height: auto;
+  left: 25%;
+  bottom: 50%;        
+  transform: translateX(-50%);
+  z-index: 30;
+  visibility: hidden;
+  pointer-events: none;
+}
+
+@keyframes arrow_leveler_blink {
+  0%   { opacity: 0.25; transform: translate(-50%,0) scale(1); }
+  50%  { opacity: 1;    transform: translate(-50%,-10px) scale(1.1); }
+  100% { opacity: 0.25; transform: translate(-50%,0) scale(1); }
+}
+
+@keyframes leveler_move {
+  0%   { transform: translate(-50%, 0) rotate(0deg); }
+  25%  { transform: translate(-50%, -270px) rotate(0deg); }     
+  50%  { transform: translate(250px, -270px) rotate(0deg); }    
+  75%  { transform: translate(250px, -270px) rotate(90deg); }   
+  100% { transform: translate(250px, -20px) rotate(90deg); }    
+}
+
+@keyframes leveler_return {
+  0%   { transform: translate(250px, -20px) rotate(90deg); }
+  25%  { transform: translate(250px, -270px) rotate(90deg); }
+  50%  { transform: translate(250px, -270px) rotate(0deg); }
+  75%  { transform: translate(-50%, -270px) rotate(0deg); }
+  100% { transform: translate(-50%, 0) rotate(0deg); }
+}
+
+#final_concrete {
+  position: absolute;
+  width: 400px;
+  left: 50%;
+  bottom: 22%;
+  transform: translateX(-50%);
+  z-index: 8;
+  visibility: hidden;
+}
+
+@keyframes spade_swing_final {
+  0%   { transform: translateX(-82%) rotate(0deg); }
+  20%  { transform: translateX(-50%) rotate(0deg); }
+  40%  { transform: translateX(-82%) rotate(-0deg); }
+  60%  { transform: translateX(-50%) rotate(-0deg); }
+  80%  { transform: translateX(-82%) rotate(-0deg); }
+  100% { transform: translateX(-50%) rotate(-0deg); }
+}
+
+#final_concrete_11 {
+  position: absolute;
+  width: 370px;         
+  height: auto;
+  left: 50%;            
+  bottom: 22%;          
+  transform: translateX(-50%);
+  z-index: 8; 
+  visibility: hidden;
+}
+
+@keyframes spade_back_to_tray {
+  0%   { transform: translateX(-50%) rotate(0deg) translateX(-653.6px); }
+  100% { transform: translateX(-50%) rotate(-0deg); }
+}
+
+#arrow_leveler_final {
+  position: absolute;
+  width: 70px;
+  height: auto;
+  left: 25%;      
+  bottom: 50%;    
+  transform: translateX(-50%);
+  z-index: 40;
+  visibility: hidden;
+  pointer-events: none;
+  animation: arrow_leveler_blink 1.2s infinite ease-in-out;
+}
+
+@keyframes leveler_path_return {
+  0%   { transform: translate(250px, -120px) rotate(90deg); } 
+  25%  { transform: translate(250px, -260px) rotate(90deg); } 
+  50%  { transform: translate(250px, -260px) rotate(0deg); }  
+  75%  { transform: translate(-50%, -260px) rotate(0deg); }   
+  100% { transform: translate(-50%, 0) rotate(0deg); }        
+}
+
+#final_concrete_2 {
+  position: absolute;
+  width: 390px;        
+  height: auto;
+  left: 50%;
+  bottom: 22%;
+  transform: translateX(-50%);
+  z-index: 8;
+  visibility: hidden;
+}
+
+@keyframes spade_swing_three {
+  0%   { transform: translateX(-50%) rotate(-0deg); }
+  16%  { transform: translateX(-40%) rotate(-0deg); }
+  33%  { transform: translateX(-60%) rotate(-0deg); }
+  50%  { transform: translateX(-40%) rotate(-0deg); }
+  66%  { transform: translateX(-60%) rotate(-0deg); }
+  83%  { transform: translateX(-40%) rotate(-0deg); }
+  100% { transform: translateX(-50%) rotate(-0deg); }
+}
+
+#final_concrete_22 {
+  position: absolute;
+  width: 390px;        
+  height: auto;
+  left: 50%;           
+  bottom: 22%;         
+  transform: translateX(-50%);
+  z-index: 8;
+  visibility: hidden;  
+}
+
+@keyframes spade_return_to_tray_final {
+  0% { transform: translateX(-50%) translateX(-653.6px) rotate(0deg); }
+  100% { transform: translateX(-50%) translateX(0px) rotate(-0deg); }
+}
+
+@keyframes leveler_full_move {
+  0%   { transform: translate(-50%, 0) rotate(0deg); }
+  25%  { transform: translate(-50%, -260px) rotate(0deg); }   
+  50%  { transform: translate(250px, -260px) rotate(0deg); }  
+  75%  { transform: translate(250px, -260px) rotate(90deg); } 
+  100% { transform: translate(250px, -50px) rotate(90deg); }  
+}
+
+@keyframes leveler_full_return {
+  0%   { transform: translate(250px, -120px) rotate(90deg); }
+  25%  { transform: translate(250px, -260px) rotate(90deg); }
+  50%  { transform: translate(250px, -260px) rotate(0deg); }
+  75%  { transform: translate(-50%, -260px) rotate(0deg); }
+  100% { transform: translate(-50%, 0) rotate(0deg); }
+}
+
+#arrow_leveler_final2 {
+  position: absolute;
+  width: 70px;
+  height: auto;
+  left: 25%;
+  bottom: 50%;
+  transform: translateX(-50%);
+  z-index: 40;
+  visibility: hidden;
+  pointer-events: none;
+  animation: arrow_blink 1.1s ease-in-out infinite;
+}
+
+#final_concrete_3 {
+  position: absolute;
+  width: 390px;        
+  height: auto;
+  left: 50%;           
+  bottom: 22%;         
+  transform: translateX(-50%);
+  z-index: 8;
+  visibility: hidden;  
+}
+
+/* ------------------------------------------------------------- 
+   UPDATED CONE PATH: UP -> RIGHT -> DOWN
+   ------------------------------------------------------------- */
+@keyframes cone_vertical_remove_path {
+  0%   { transform: translateX(-50%) translateY(0); }
+  30%  { transform: translateX(-50%) translateY(-450px); } /* Go UP */
+  60%  { transform: translateX(50%)  translateY(-450px); } /* Move RIGHT */
+  100% { transform: translateX(50%)  translateY(0); }      /* Come DOWN */
+}
+
+/* ------------------------------------------------------------- 
+   UPDATED CONCRETE 4 (Stays in Center)
+   ------------------------------------------------------------- */
+#final_concrete_4 {
+  position: absolute;
+  width: 390px;        
+  height: auto;
+  /* Centered */
+  left: 50%;           
+  bottom: 22%;         
+  transform: translateX(-50%);
+  z-index: 8;
+  visibility: hidden; 
+}
+
+@keyframes next_blink {
+  0%,100% { transform: scale(1); opacity: 1; }
+  50%     { transform: scale(1.1); opacity: 0.5; }
+}
+
+/* Scale & Measuring */
+#scale {
+  position: absolute;
+  width: 118px;      
+  height: auto;
+  left: 20%;         
+  bottom: 70%;       
+  transform: translateX(-50%);
+  z-index: 8;
+  visibility: hidden;
+}
+
+#arrow_scale {
+  position: absolute;
+  width: 70px;
+  height: auto;
+  left: 20%;        
+  bottom: 74%;      
+  transform: translateX(-50%);
+  z-index: 20;
+  visibility: hidden;
+  pointer-events: none;
+  animation: arrow_blink 1.1s ease-in-out infinite;
+}
+
+/* ------------------------------------------------------------- 
+   UPDATED SCALE ANIMATION (Matches centered concrete)
+   ------------------------------------------------------------- */
+@keyframes scale_move_right {
+  0%   { transform: translateX(-50%) translateX(0); }
+  /* Reduced distance to hit center (approx 400px) */
+  100% { transform: translateX(-50%) translateX(400px); } 
+}
+
+@keyframes scale_move_down {
+  0%   { transform: translateX(-50%) translateX(400px) translateY(0) rotate(0); }
+  100% { transform: translateX(-50%) translateX(400px) translateY(52.5px) rotate(90deg); } 
+}
+
+.measure_line {
+  position: absolute;
+  width: 0px;              
+  height: 4px;             
+  background: #ff0000;     
+  border-radius: 2px;
+  z-index: 30;
+  visibility: hidden;
+}
+
+@keyframes measure_expand {
+  0%   { width: 0px; margin-left: 0; }
+  100% { width: 380px; margin-left: -190px; }  
+}
+
+/* ------------------------------------------------------------- 
+   UPDATED MEASURE LABEL (Centered)
+   ------------------------------------------------------------- */
+#measure_value_label {
+  position: absolute;
+  font-size: 26px;
+  font-weight: 700;
+  color: #ff0000;
+  text-shadow: 0 0 5px white;
+  left: 50%;                
+  bottom: 78%;              
+  transform: translateX(-50%);
+  visibility: hidden;
+  z-index: 35;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.6s ease-in-out;
+}
+
+/* ------------------------------------------------------------- 
+   UPDATED LEVELER MEASURE (Positioned Left of Center)
+   ------------------------------------------------------------- */
+#leveler_measure {
+  position: absolute;
+  width: 260px;
+  height: auto;
+  left: 68%;              
+  bottom: calc(25% + 328px); 
+  transform: translateX(-50%) rotate(0deg);
+  z-index: 20;
+  visibility: hidden;
+}
+
+/* Title Screen */
+.title-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: #ffffff; 
+  z-index: 1000;             
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  transition: opacity 0.5s ease-out; 
+}
+
+.title-overlay h1 {
+  font-size: 80px;           
+  color: #333;
+  margin-bottom: 40px;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+}
+
+.start-btn {
+  padding: 15px 40px;
+  font-size: 30px;
+  cursor: pointer;
+  background-color: #4CAF50; 
+  color: white;
+  border: none;
+  border-radius: 8px;
+  box-shadow: 0 4px 6px rgba(0,0,0,0.2);
+  transition: transform 0.1s;
+}
+
+.start-btn:hover {
+  transform: scale(1.05);
+  background-color: #45a049;
+}
+
+/* REPLACE the existing leveler_shake_25 animation with this: */
+@keyframes leveler_shake_25 {
+    0%, 4%, 8%, 12%, 16%, 20%, 24%, 28%, 32%, 36%, 
+    40%, 44%, 48%, 52%, 56%, 60%, 64%, 68%, 72%, 76%, 
+    80%, 84%, 88%, 92%, 96%, 100% { 
+        transform: var(--leveler-start-transform) translate(0, 0); 
+    }
+    
+    2%, 6%, 10%, 14%, 18%, 22%, 26%, 30%, 34%, 38%, 
+    42%, 46%, 50%, 54%, 58%, 62%, 66%, 70%, 74%, 78%, 
+    82%, 86%, 90%, 94%, 98% { 
+        transform: var(--leveler-start-transform) translate(-15%, -15%); 
+    }
+    
+    1%, 5%, 9%, 13%, 17%, 21%, 25%, 29%, 33%, 37%, 
+    41%, 45%, 49%, 53%, 57%, 61%, 65%, 69%, 73%, 77%, 
+    81%, 85%, 89%, 93%, 97% { 
+        transform: var(--leveler-start-transform) translate(15%, 15%); 
+    }
+    
+    3%, 7%, 11%, 15%, 19%, 23%, 27%, 31%, 35%, 39%, 
+    43%, 47%, 51%, 55%, 59%, 63%, 67%, 71%, 75%, 79%, 
+    83%, 87%, 91%, 95%, 99% { 
+        transform: var(--leveler-start-transform) translate(-15%, 15%); 
+    }
+}
+
+/* ADD Styles for the Input Container */
+#final_input_container {
+    position: absolute;
+    left: 10%;
+    top: 23%; /* Positioned below the concrete */
+    transform: translate(-50%, -50%);
+    background: white;
+    padding: 20px;
+    border: 2px solid #333;
+    border-radius: 10px;
+    z-index: 2000;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+    visibility: hidden; /* Hidden by default */
+    text-align: center;
+}
+
+#final_input_container label {
+    font-size: 18px;
+    font-weight: bold;
+    color: #333;
+}
+
+#result_input {
+    padding: 10px;
+    font-size: 18px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    width: 200px;
+    text-align: center;
+}
+
+#submit_btn {
+    padding: 10px 20px;
+    font-size: 18px;
+    cursor: pointer;
+    background: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    transition: background 0.2s;
+}
+
+#submit_btn:hover {
+    background: #45a049;
+}
