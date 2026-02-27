@@ -1,0 +1,10 @@
+
+/home/runner/work/exp-concrete-slump-cone-iitd/exp-concrete-slump-cone-iitd/experiment/simulation/js/main.js
+   57:10  warning  'dismissTitleScreen' is defined but never used    no-unused-vars
+   96:10  warning  'registerConcrete1' is defined but never used     no-unused-vars
+  156:10  warning  'scene_start_concrete' is defined but never used  no-unused-vars
+  187:10  warning  'showBaseStage' is defined but never used         no-unused-vars
+  875:10  warning  'checkFinalInput' is defined but never used       no-unused-vars
+
+✖ 5 problems (0 errors, 5 warnings)
+
