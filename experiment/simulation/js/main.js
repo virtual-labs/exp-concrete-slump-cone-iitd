@@ -114,7 +114,7 @@ function registerLevelerArrowFinal2() {
 }
 
 function registerScale(){
-    if(!$('scale')) addActor({ id: 'scale', src: 'images/ruler.png', z: 8 });
+    if(!$('scale')) addActor({ id: 'scale', src: 'images/Ruler.png', z: 8 });
 }
 
 function registerArrowScale() {
