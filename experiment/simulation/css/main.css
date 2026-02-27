@@ -18,19 +18,18 @@ html, body {
 }
 
 /* The Stage is now LOCKED to your perfect resolution */
-.stage { 
-  position: absolute; 
-  width: 1536px;    /* Locked Width */
-  height: 730px;    /* Locked Height */
-  
-  /* Centering logic */
+.stage {
+  position: absolute;
+  width: 1536px;
+  height: 730px;
+
   left: 50%;
   top: 50%;
+
+  transform: translate(-50%, -50%);
   transform-origin: center center;
-  
-  background: #ffffff; 
-  box-shadow: 0 0 20px rgba(0,0,0,0.5); 
-  overflow: hidden; 
+
+  background: #ffffff;
 }
 
 /* Ensure actors use the fixed coordinate system */
