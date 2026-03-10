@@ -2,37 +2,105 @@
   "version": 2.0,
   "questions": [
     {
-      "question": "This is a Sample Question 1?",
+      "question": "Which Indian Standard (IS) Codes are adopted for performing the slump cone test and apparatus specifications respectively?",
       "answers": {
-        "a": "answer1",
-        "b": "answer2",
-        "c": "answer3",
-        "d": "answer4"
+        "a": "IS 1199 and IS 5515",
+        "b": "IS 5515 and IS 1199",
+        "c": "IS 1199 and IS 7320",
+        "d": "IS 7320 and IS 1199"
       },
       "explanations": {
-        "a": "Explanation 1  <a href='www.google.com'>here</a>",
-        "b": "Explanation 2",
-        "c": "Explanation 2",
-        "d": "Explanation 2"
+        "a": "Incorrect. IS 5515 is not the correct code for apparatus specifications.",
+        "b": "Incorrect. The order is reversed and IS 5515 is not the correct code.",
+        "c": "Correct! IS 1199 covers the slump cone test and IS 7320 covers apparatus specifications.",
+        "d": "Incorrect. The order is reversed."
+      },
+      "correctAnswer": "c",
+      "difficulty": "beginner"
+    },
+    {
+      "question": "What are the dimensions of slump cone?",
+      "answers": {
+        "a": "Top dia=20 cm, Bottom dia=30 cm and Height=10 cm",
+        "b": "Top dia=10 cm, Bottom dia=30 cm and Height=20 cm",
+        "c": "Top dia=20 cm, Bottom dia=40 cm and Height=30 cm",
+        "d": "Top dia=10 cm, Bottom dia=20 cm and Height=30 cm"
+      },
+      "explanations": {
+        "a": "Incorrect. These are not the standard dimensions of a slump cone.",
+        "b": "Incorrect. The bottom diameter and height are wrong.",
+        "c": "Incorrect. The top and bottom diameters are wrong.",
+        "d": "Correct! The standard slump cone has Top dia=10 cm, Bottom dia=20 cm and Height=30 cm."
+      },
+      "correctAnswer": "d",
+      "difficulty": "beginner"
+    },
+    {
+      "question": "What should be the maximum size of aggregate for which the slump test can be progressed in field?",
+      "answers": {
+        "a": "40 mm",
+        "b": "20 mm",
+        "c": "38 mm",
+        "d": "36 mm"
+      },
+      "explanations": {
+        "a": "Incorrect. 40 mm exceeds the maximum allowed size.",
+        "b": "Incorrect. 20 mm is below the maximum limit.",
+        "c": "Correct! As per IS 1199, the nominal maximum size of aggregate should not exceed 38 mm.",
+        "d": "Incorrect. 36 mm is not the specified maximum size."
+      },
+      "correctAnswer": "c",
+      "difficulty": "beginner"
+    },
+    {
+      "question": "Workability of concrete can be related to water cement ratio as-",
+      "answers": {
+        "a": "Higher w/c ratio mixes offer higher workability.",
+        "b": "Higher w/c ratio mixes offer low workability.",
+        "c": "Lower w/c ratio mixes offer higher workability.",
+        "d": "Can't be related."
+      },
+      "explanations": {
+        "a": "Correct! Higher water-cement ratio increases the workability of concrete.",
+        "b": "Incorrect. Higher w/c ratio actually increases workability.",
+        "c": "Incorrect. Lower w/c ratio results in stiffer mixes with lower workability.",
+        "d": "Incorrect. Workability is directly related to the water-cement ratio."
       },
       "correctAnswer": "a",
       "difficulty": "beginner"
     },
     {
-      "question": "This is a Sample Question 2?",
+      "question": "Which of the following is not a test for assessing the workability of concrete?",
       "answers": {
-        "a": "answer1",
-        "b": "answer2",
-        "c": "answer3",
-        "d": "answer4"
+        "a": "Compaction Factor Test",
+        "b": "Flow Table Test",
+        "c": "Le-Chatelier Test",
+        "d": "Vee-Bee Test"
       },
       "explanations": {
-        "a": "Explanation 1  <a href='www.google.com'>here</a>",
-        "b": "Explanation 2",
-        "c": "Explanation 2",
-        "d": "Explanation 2"
+        "a": "Incorrect. Compaction Factor Test is a standard workability test.",
+        "b": "Incorrect. Flow Table Test is used to assess workability.",
+        "c": "Correct! Le-Chatelier Test is used for testing soundness of cement, not workability of concrete.",
+        "d": "Incorrect. Vee-Bee Test is a standard workability test."
       },
       "correctAnswer": "c",
+      "difficulty": "beginner"
+    },
+    {
+      "question": "Workability of concrete can not be associated with which one of the following concepts?",
+      "answers": {
+        "a": "Ease of flow (internal friction)",
+        "b": "Prevention of harshness",
+        "c": "Prevention of segregation and bleeding",
+        "d": "All of them are associated to concrete's workability"
+      },
+      "explanations": {
+        "a": "Incorrect. Ease of flow is associated with workability.",
+        "b": "Incorrect. Prevention of harshness is associated with workability.",
+        "c": "Incorrect. Prevention of segregation and bleeding is associated with workability.",
+        "d": "Correct! All the listed concepts are indeed associated with concrete's workability."
+      },
+      "correctAnswer": "d",
       "difficulty": "beginner"
     }
   ]
