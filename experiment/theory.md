@@ -24,4 +24,4 @@ The mould shall be constructed of metal (brass or aluminium shall not be used) o
 
 **b) Tamping rod-** The rod should be of steel, **16 mm in diameter, 0.6 m long, rounded at one end**.
 
-![Slump Cone Mould](images/slump_cone_mould.png)
+
