@@ -37,6 +37,5 @@ The slump can be of the following four types-
 
 - Concrete with slump height 0 is referred to as **ZERO SLUMP** concrete.
 
-![Types of Slump - True, Zero, Collapsed, Shear](images/slump_types.png)
 
 **In short, higher w/c ratio leads to more slump height and hence more & better workability, reverse is the case with low w/c ratio concrete.**
