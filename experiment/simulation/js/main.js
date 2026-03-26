@@ -207,6 +207,7 @@ function showBaseStage(){
       next.style.animation = 'next_blink 1.2s infinite ease-in-out';
     }
   });
+   document.getElementById("scaleDisclaimer").style.opacity = 1;
 }
 
 /* --- Step 3: Show Cone --- */
