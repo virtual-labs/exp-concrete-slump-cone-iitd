@@ -1,41 +1,29 @@
-### Procedure
+## Procedure
 
-The procedure for performing the test is as follows-
+As per IS 1199, the procedure for conducting the slump test is as follows:
 
-- The internal surfaces of the mould shall be thoroughly cleaned and freed from superfluous and any set concrete before commencing the test.
+1. **Preparation of Apparatus:** Dampen the mould and base plate using a moist cloth. Remove any excess water with an absorbent cloth. Place the mould on a rigid, horizontal base plate free from vibration and shock.
 
-- The mould shall be placed on a smooth, horizontal, rigid and non-absorbent surface, such as a metal base plate properly cleaned can be used.
+2. **Filling the Mould:** Immediately after obtaining the concrete sample, fill the mould in three equal layers, each approximately one-third of the mould height when compacted. Hold the mould firmly in position using the foot pieces during filling.
 
-- The mix prepared shall be brought near the testing assembly, the mould should be filled with concrete in **three layers** each **one-third** of the height and each layer must be tamped thoroughly in circular motion by giving **25 blows** each with the tamping rod.
+3. **Placement of Concrete:** Ensure that the concrete is evenly and symmetrically distributed within the mould during filling.
 
-- After the top layer has been compacted, the surface should be levelled off using a trowel or the tamping rod itself.
+4. **Compaction:** Tamp each layer with 25 strokes of the tamping rod.
+   - Strokes shall be applied uniformly over the cross-section
+   - For the bottom layer, incline the rod slightly and distribute strokes spirally towards the center
 
-- The mould shall be removed from concrete immediately by raising it slowly and carefully in the vertical direction.
+5. **Layer Integration:** For the second and top layers, tamp throughout their depth such that the strokes just penetrate into the underlying layer, ensuring proper bonding between layers.
 
-- This will allow the concrete to subside, **the slump height in mm** then can be measured with the help of a graduated scale by finding the difference between the height of the inverted cone & highest point of slump formed.
+6. **Top Layer Handling:** While placing the top layer, heap the concrete above the mould before tamping.
+   - If subsidence occurs during tamping, add more concrete to maintain excess above the mould
+   - Ensure that additional concrete does not lead to over-compaction
 
-- Any slump specimen which collapses or shears off laterally gives incorrect result and if this occurs, the test shall be repeated with another sample, if in repeat test also again this happens, the slump shall be measured and the fact that specimen sheared, shall be recorded.
+7. **Levelling:** After tamping the top layer, strike off the surface level with the top of the mould using a sawing and rolling motion of the tamping rod. Remove any spilled concrete from the base plate.
 
-### Workability Classification
+8. **Lifting the Mould:** Carefully remove the mould within 5 ± 2 seconds by lifting it vertically upwards, ensuring that no lateral or rotational movement is imparted to the concrete.
 
-| Degree of workability | Slump in mm | Slump in inch |
-|---|---|---|
-| Very Low | 0-25 | 0-1 |
-| Low | 25-50 | 1-2 |
-| Medium | 50-100 | 2-4 |
-| High | 100-175 | 4-7 |
+9. **Time Requirement:** The entire procedure, from filling to removal of the mould, shall be completed within 180 seconds without interruption.
 
-### Types of Slump
+10. **Measurement of Slump:** Immediately after removing the mould, measure the slump as the difference between the height of the mould and the highest point of the slumped concrete.
 
-The slump can be of the following four types-
-
-- **TRUE SLUMP** refers to a general drop of concrete mass evenly all around without disintegration.
-
-- **SHEAR SLUMP** indicates that the concrete lacks cohesion, it may undergo segregation and bleeding and thus is undesirable for the durability of concrete.
-
-- **COLLAPSE SLUMP** indicates that the concrete mix is too wet and the mix is regarded as harsh and lean.
-
-- Concrete with slump height 0 is referred to as **ZERO SLUMP** concrete.
-
-
-**In short, higher w/c ratio leads to more slump height and hence more & better workability, reverse is the case with low w/c ratio concrete.**
+11. **Recording:** Record the slump value to the nearest 5 mm.
